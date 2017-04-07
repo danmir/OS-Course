@@ -23,9 +23,19 @@ void create_file_without_hole(void)
     close(fd);
 }
 
+void create_zero_file(void)
+{
+    int fd = open("zero.file", O_WRONLY|O_TRUNC|O_CREAT, 0600);
+    char buf[100000];
+    memset(buf, '\0', 100000);
+    write(fd, buf, 100000);
+    close(fd);
+}
+
 int main()
 {
     create_file_with_hole();
     create_file_without_hole();
+    create_zero_file();
     return 0;
 }
