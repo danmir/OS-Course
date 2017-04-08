@@ -86,7 +86,6 @@ int read_numbers_from_file(const char *filename) {
                 perror("Value out of range");
                 return -1;
             }
-                perror("Value out of range");
             
             // Add to result array
             if (add_num_to_res(res_int) == -1) {
