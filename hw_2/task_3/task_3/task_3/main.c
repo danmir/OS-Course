@@ -10,25 +10,25 @@ long long int *res_array;
 int res_array_pos = 0;
 int res_array_len;
 
-int expand_long_array(long long int *array, int *size) {
-    long long int *tmp_ptr = realloc(array, *size + 100);
+int expand_long_array(long long int **array, int *size) {
+    long long int *tmp_ptr = realloc(*array, *size + 100);
     if (tmp_ptr == NULL) {
         perror("Can't allocate memory to expand int array");
         return -1;
     } else {
-        array = tmp_ptr;
+        *array = tmp_ptr;
         *size += 100;
     }
     return 0;
 }
 
-int expand_char_array(char *array, int *size) {
-    char *tmp_ptr = realloc(array, *size + 100);
+int expand_char_array(char **array, int *size) {
+    char *tmp_ptr = realloc(*array, *size + 100);
     if (tmp_ptr == NULL) {
         perror("Can't allocate memory to expand char array");
         return -1;
     } else {
-        array = tmp_ptr;
+        *array = tmp_ptr;
         *size += 100;
     }
     return 0;
@@ -39,7 +39,7 @@ int add_num_to_res(long long int num) {
     res_array[res_array_pos] = num;
     // Check for bound
     if (res_array_pos + 1 >= res_array_len) {
-        if (expand_long_array(res_array, &res_array_len) == -1) {
+        if (expand_long_array(&res_array, &res_array_len) == -1) {
             return -1;
         }
     }
@@ -65,7 +65,7 @@ int read_numbers_from_file(const char *filename) {
             current_num[i] = ch;
             // Check for bound
             if (i + 1 >= current_num_len) {
-                if (expand_char_array(current_num, &current_num_len) == -1) {
+                if (expand_char_array(&current_num, &current_num_len) == -1) {
                     return -1;
                 }
             }
@@ -96,7 +96,7 @@ int read_numbers_from_file(const char *filename) {
         }
     }
     
-    free(current_num);
+    //free(current_num);
     if (close(fd) < 0) {
         perror("Can't close file: ");
         return -1;
