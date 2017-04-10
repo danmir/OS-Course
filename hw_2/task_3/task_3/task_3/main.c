@@ -11,25 +11,25 @@ int res_array_pos = 0;
 int res_array_len;
 
 int expand_long_array(long long int **array, int *size) {
-    long long int *tmp_ptr = realloc(*array, *size + 100);
+    long long int *tmp_ptr = realloc(*array, (*size + 10) * sizeof *array);
     if (tmp_ptr == NULL) {
         perror("Can't allocate memory to expand int array");
         return -1;
     } else {
         *array = tmp_ptr;
-        *size += 100;
+        *size += 10;
     }
     return 0;
 }
 
 int expand_char_array(char **array, int *size) {
-    char *tmp_ptr = realloc(*array, *size + 100);
+    char *tmp_ptr = realloc(*array, (*size + 10) * sizeof *array);
     if (tmp_ptr == NULL) {
         perror("Can't allocate memory to expand char array");
         return -1;
     } else {
         *array = tmp_ptr;
-        *size += 100;
+        *size += 10;
     }
     return 0;
 }
