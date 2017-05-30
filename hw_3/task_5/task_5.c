@@ -220,7 +220,6 @@ void sig_handler(int sig) {
 int main(int argc, char *argv[]) {
     signal(SIGHUP, (void (*)(int)) sig_handler);
     set_conf_file_path(argc, argv);
-    run_tasks();
 
     // Делаем демона
     switch (fork()) {
