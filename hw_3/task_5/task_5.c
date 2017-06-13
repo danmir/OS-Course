@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <limits.h>
 
 /* Количество попыток для запуска */
 #define __MAX_RETRY_ATTEMPTS__ 50
@@ -72,7 +73,8 @@ void set_conf_file_path(int argc, char *argv[]) {
         syslog(LOG_ERR, "%s\n", "Can't get conf file parameter");
         exit(1);
     }
-    conf_file_path = argv[1];
+    conf_file_path = malloc(PATH_MAX + 1);
+    realpath(argv[1], conf_file_path);
     return;
 }
 
